@@ -1,0 +1,2 @@
+00 23 * * * (cd /data/scripts/nodejs/lib/xwlb; sh 1.sh >1.log 2>&1)
+00 23 * * * (cd /data/scripts/nodejs/lib/xwlb; sh 2.sh >2.log 2>&1)
