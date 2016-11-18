@@ -44,10 +44,8 @@ rmax=$(echo "$range" | awk '{print $5}')
 cat /dev/null >"${sql_file}"
 ./2.js "$hh_file" |tail -1| awk -v rmin=$rmin -v rmin5=$rmin5 -v rmid=$rmid -v rmax5=$rmax5 -v rmax=$rmax '{
   if ($7 == 0) ss=50;
-  else if($7 > 0 && $7 < rmax5) ss=75;
-  else if($7 >= rmax5) ss=100;
-  else if($7 <0 && $7 > rmin5) ss=25;
-  else if($7 <= rmin5) ss=0;
+  else if($7 > 0) ss=(1+$7/rmax)*50;
+  else if($7 < 0) ss=(1-$7/rmin)*50;
   else ss=50;
   printf("REPLACE INTO jrj_xwlb_szzs_score (data_time,score) values(\x27%s\x27, %s);\n", $1, ss);
 }' >"${sql_file}"
